@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8.13)
-project (depth_eye)
+project (DepthEye_ToF)
 
 #set(CMAKE_INCLUDE_CURRENT_DIR 1)
 string(REPLACE "\n" "" SYSTEM_VERSION ${CMAKE_SYSTEM_VERSION})
