@@ -1,9 +1,4 @@
-#include "ros/ros.h"
-#include "std_msgs/String.h"
-#include "std_msgs/Int64.h"
-#include <math.h>
-
-
+#include "DepthEyeInterface.h"
 
 int main(int argc, char **argv)
 {

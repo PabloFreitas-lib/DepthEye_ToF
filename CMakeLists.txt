@@ -83,8 +83,6 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${ARCDIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${LIBDIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${BINDIR})
 
-include_directories(${COMMON_INCLUDE})
-link_directories("/usr/local/lib" ${COMMON_LIBS} ${voxel})
 
 #### Packaging related information -- common to both platforms
 set(CPACK_PACKAGE_NAME "Depth Eye SDK")
@@ -94,8 +92,6 @@ set(CPACK_COMPONENTS_GROUPING ALL_COMPONENTS_IN_ONE)
 set(CPACK_PACKAGE_VENDOR "pointcloud.ai")
 set(CPACK_SOURCE_GENERATOR "Developer")
 
-add_subdirectory(src)
-add_subdirectory(test)
 
 #-------------------------------------------------------------------------------
 #########################################################
@@ -127,7 +123,7 @@ nodelet
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -225,13 +221,20 @@ catkin_package(
 ###########
 ## Build ##
 ###########
+include_directories(include
+${COMMON_INCLUDE}
+${catkin_INCLUDE_DIRS}
+)
+link_directories("/usr/local/lib" ${COMMON_LIBS} ${voxel})
+add_subdirectory(src)
+add_subdirectory(test)
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(
- include
- ${catkin_INCLUDE_DIRS}
-)
+#include_directories(
+# include
+# ${catkin_INCLUDE_DIRS}
+#)
 
 ## Declare a C++ library
  add_library(${PROJECT_NAME} src/DepthEyeInterface.cpp)
@@ -245,7 +248,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
- add_executable(${PROJECT_NAME}_node src/DepthEye_ToF_node.cpp)
+ add_executable(DepthEye_ToF_node src/DepthEye_ToF_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -286,7 +289,7 @@ include_directories(
 ## Mark cpp header files for installation
  install(DIRECTORY include/${PROJECT_NAME}/
    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-   #FILES_MATCHING PATTERN "*.h"
+   FILES_MATCHING PATTERN "*.h"
    PATTERN ".svn" EXCLUDE
  )
 

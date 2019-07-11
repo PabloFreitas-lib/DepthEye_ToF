@@ -2,6 +2,34 @@
 #define POINTCLOUD_DEPTHEYE_H
 #include "CameraSystem.h"
 #include "Common.h"
+
+// Comunicacao ROS
+#include <ros/ros.h>
+#include <image_transport/image_transport.h>
+#include <sensor_msgs/Image.h>
+#include <sensor_msgs/CameraInfo.h>
+#include <sensor_msgs/SetCameraInfo.h>
+#include <sensor_msgs/image_encodings.h>
+#include <sensor_msgs/PointCloud2.h>
+#include <sensor_msgs/point_cloud2_iterator.h>
+#include <geometry_msgs/TransformStamped.h>
+#include <ros/console.h>
+/*
+#include <tf2_ros/static_transform_broadcaster.h>
+
+#include <tf/transform_listener.h>
+
+//PCL
+#include <pcl_ros/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl/conversions.h>
+*/
+//Standard Libs
+#include <stdio.h>
+#include <time.h>
+#include <sstream>
+#include <string>
+
 namespace PointCloud
 {
 	enum DEPTH_MODE{
@@ -44,6 +72,11 @@ namespace PointCloud
 		float  getFrameRate();
 		float  getFOV();
 		FrameSize  getRevolution();
+
+		//ROS Functions
+		//DepthEyeSystem(ros::NodeHandle nh_camera, ros::NodeHandle nh_private, std::string nodeName);
+
+
 	private:
 		Voxel::CameraSystem	  cameraSys_;
 		Voxel::DepthCameraPtr depthCamera_;
