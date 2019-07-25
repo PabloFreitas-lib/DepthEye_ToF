@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>DepthEye_ToF</name>
+  <name>deptheye_tof</name>
   <version>0.0.1</version>
-  <description>The DepthEye_ToF package</description>
+  <description>The deptheye_tof package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
@@ -20,7 +20,7 @@
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
   <!--<url type="repository">https://github.com/voxel-dot-at/bta_tof_driver</url>-->>
-  <!-- <url type="website">http://wiki.ros.org/DepthEye_ToF</url> -->
+  <!-- <url type="website">http://wiki.ros.org/deptheye_tof</url> -->
 
 
   <!-- Author tags are optional, multiple are allowed, one per tag -->
@@ -41,6 +41,8 @@
   <build_depend>camera_info_manager</build_depend>
   <build_depend>camera_calibration_parsers</build_depend>
   <build_depend>nodelet</build_depend>
+  <build_depend>tf</build_depend>
+
 
   <exec_depend> nodelet </exec_depend>
   <exec_depend> libpcl-all </exec_depend>
@@ -52,5 +54,7 @@
   <exec_depend>image_transport</exec_depend>
   <exec_depend>camera_info_manager</exec_depend>
   <exec_depend>camera_calibration_parsers</exec_depend>
+  <exec_depend>tf</exec_depend>
+
 
 </package>

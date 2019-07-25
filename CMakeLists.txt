@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8.13)
-project (DepthEye_ToF)
+project (deptheye_tof)
 
 #set(CMAKE_INCLUDE_CURRENT_DIR 1)
 string(REPLACE "\n" "" SYSTEM_VERSION ${CMAKE_SYSTEM_VERSION})
@@ -99,7 +99,7 @@ set(CPACK_SOURCE_GENERATOR "Developer")
 #########################################################
 
 #cmake_minimum_required(VERSION 2.8.13)
-#project(DepthEye_ToF)
+#project(deptheye_tof)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
@@ -213,8 +213,8 @@ find_package(Boost REQUIRED COMPONENTS system)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES DepthEye_ToF
-  CATKIN_DEPENDS roscpp sensor_msgs std_msgs pcl_ros pcl_conversions
+  LIBRARIES deptheye_tof
+  CATKIN_DEPENDS roscpp sensor_msgs std_msgs pcl_ros pcl_conversions tf camera_info_manager
 #  DEPENDS system_lib
 )
 
@@ -248,7 +248,7 @@ add_subdirectory(test)
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
- add_executable(DepthEye_ToF_node src/DepthEye_ToF_node.cpp)
+ add_executable(deptheye_tof_node src/deptheye_tof_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -305,7 +305,7 @@ add_subdirectory(test)
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_DepthEye_ToF.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_deptheye_tof.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

@@ -5,7 +5,7 @@ namespace PointCloud
 	DepthEyeSystem::DepthEyeSystem()
 	{
 		//logger.setDefaultLogLevel(LOG_INFO);
-		
+
 		// Get all valid detected devices
 		const Vector<DevicePtr> &devices = cameraSys_.scan();
 		bool found = false;
@@ -51,6 +51,42 @@ namespace PointCloud
 		status_ = INITIALIZED;
 	}
 
+	/*
+	############################################
+	# Novo para aplicacao com o ROS #
+  ############################################
+	*/
+
+	DepthEyeSystem::DepthEyeSystem(ros::NodeHandle nh_camera, ros::NodeHandle nh_private, std::string nodeName):
+		nh_(nh_camera),
+    nh_private_(nh_private),
+    nodeName_(nodeName),
+    config_init_(false),
+		_xyz (new sensor_msgs::PointCloud2)
+	{
+		this->cim_tof_ = new camera_info_manager::CameraInfoManager(nh_camera);
+    this->it_ = new	image_transport::ImageTransport(nh_camera);
+	}
+
+	DepthEyeSystem::~DepthEyeSystem()
+	{
+	    ROS_INFO("closing.");
+			ROS_DEBUG("Close called");
+	    disconnect();
+	}
+
+
+	void DepthEyeSystem::publishData()
+	{
+
+	}
+
+	/*
+	#############################################
+	# Fim dos codigos novo para aplicacao do ros #
+	#############################################
+	*/
+
 	void DepthEyeSystem::setMode(DEPTH_MODE mode)
 	{
 		if(status_ != CONNECTED)
@@ -63,7 +99,7 @@ namespace PointCloud
 		  intg_duty_cycle = 20;
 		  r.numerator = 30;
 		  r.denominator = 1;
-		
+
 		}else if(mode == PRICISTION)
 		{
 		  intg_duty_cycle = 30;
@@ -135,7 +171,7 @@ namespace PointCloud
 			return false;
 		}
 		depthCamera_->addFilter(p, DepthCamera::FRAME_RAW_FRAME_PROCESSED);
-		logger(LOG_INFO) << "Successfully enableFilterHDR "<< std::endl;	
+		logger(LOG_INFO) << "Successfully enableFilterHDR "<< std::endl;
 		return true;
 	}
 
@@ -186,7 +222,7 @@ namespace PointCloud
 			}
 			status_ = STARTED;
 		//	depthCamera_->wait();
-		} 
+		}
 		else
 		{
 			return false;
@@ -208,7 +244,7 @@ namespace PointCloud
 			return ;
 		depthCamera_->reset();
 	}
-	
+
 	bool DepthEyeSystem::disconnect()
 	{
 		if(status_ != CONNECTED)
@@ -232,7 +268,7 @@ namespace PointCloud
 	{
 		if(status_ < CONNECTED)
 			return (float)0.;
-		
+
 		float fov;
 		depthCamera_->getFieldOfView(fov);
 		return fov;
@@ -243,7 +279,7 @@ namespace PointCloud
 		FrameSize fs;
 		if(status_ < CONNECTED)
 			return fs;
-		
+
 		Voxel::FrameSize voxelFs;
 		depthCamera_->getFrameSize(voxelFs);
 		fs.width = voxelFs.width;
